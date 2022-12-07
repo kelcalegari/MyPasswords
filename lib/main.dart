@@ -9,7 +9,7 @@ class MyPasswords extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginScreen(),
+      home: Login(),
     );
   }
 

@@ -2,20 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/editor.dart';
+import 'Cadastro.dart';
 
 const _rotuloCampoLogin = 'E-mail';
 const _rotuloCampoSenha = 'Senha';
 
 const _textoBotaoLogin = 'Login';
 
-class LoginScreen extends StatefulWidget {
+const String _rotuloCadastreSe = "Cadastre-se";
+
+class Login extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return LoginFormState();
+    return LoginState();
   }
 }
 
-class LoginFormState extends State<LoginScreen> {
+class LoginState extends State<Login> {
   final TextEditingController _controladorCampoEmail = TextEditingController();
   final TextEditingController _controladorCampoSenha = TextEditingController();
   @override
@@ -36,7 +39,22 @@ class LoginFormState extends State<LoginScreen> {
               rotulo: _rotuloCampoSenha,
               icone: Icons.lock,
               textInputType: TextInputType.visiblePassword,
-              ocultar: true,
+              senha: true,
+            ),
+            Row(
+              textDirection: TextDirection.rtl,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right:20.0),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () => _realizarCadastro(context),
+                    child: const Text(_rotuloCadastreSe),
+                  ),
+                ),
+              ],
             ),
             ElevatedButton(
               child: Text(_textoBotaoLogin),
@@ -48,6 +66,12 @@ class LoginFormState extends State<LoginScreen> {
     );
   }
 }
+
+void _realizarCadastro(BuildContext context) {
+  Navigator.push(context,
+  MaterialPageRoute(builder: (context)=>  Cadastro()));
+}
+
 
 void _realizaLogin(BuildContext context) {
   debugPrint("Clique");

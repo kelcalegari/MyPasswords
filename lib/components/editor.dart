@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Editor extends StatelessWidget {
+class Editor extends StatefulWidget {
   final TextEditingController controlador;
   final String rotulo;
   final String? dica;
   final IconData? icone;
   final TextInputType textInputType;
-  final bool ocultar;
-
+  final bool senha;
 
   Editor({
     required this.controlador,
@@ -15,13 +14,41 @@ class Editor extends StatelessWidget {
     this.dica,
     required this.textInputType,
     this.icone,
-    this.ocultar = false,
+    this.senha = false,
+  });
+  @override
+  State<StatefulWidget> createState() {
+    return EditorState(
+      controlador: controlador,
+      rotulo: rotulo,
+      dica: dica,
+      icone: icone,
+      textInputType: textInputType,
+      senha: senha,
+    );
+  }
+}
 
+class EditorState extends State<Editor> {
+  final TextEditingController controlador;
+  final String rotulo;
+  final String? dica;
+  final IconData? icone;
+  final TextInputType textInputType;
+  final bool senha;
+  bool _passwordVisible = false;
+
+  EditorState({
+    required this.controlador,
+    required this.rotulo,
+    this.dica,
+    required this.textInputType,
+    this.icone,
+    this.senha = false,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
@@ -31,10 +58,27 @@ class Editor extends StatelessWidget {
           icon: icone != null ? Icon(icone) : null,
           labelText: rotulo,
           hintText: dica != null ? dica : null,
+          suffixIcon: senha != false ? IconButton(
+            icon: Icon(
+              // Based on passwordVisible state choose the icon
+              _passwordVisible
+                  ? Icons.visibility
+                  : Icons.visibility_off,
+              color: Theme.of(context).primaryColorDark,
+            ),
+            onPressed: () {
+              // Update the state i.e. toogle the state of passwordVisible variable
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+              });
+            },
+          ): null,
         ),
         keyboardType: textInputType,
-        obscureText: ocultar,
+        obscureText: !_passwordVisible && senha,
+
       ),
     );
   }
+
 }
