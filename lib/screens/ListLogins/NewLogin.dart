@@ -1,9 +1,25 @@
+// ignore_for_file: file_names, non_constant_identifier_names, must_be_immutable, no_logic_in_create_state
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codigo/models/LoginItem.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/editor.dart';
+import '../../components/Editor.dart';
+import '../../components/InputCRCard.dart';
+
+const List<IconData> list = <IconData>[
+  Icons.email,
+  Icons.apple,
+  Icons.badge,
+  Icons.adobe,
+  Icons.all_inbox,
+  Icons.alternate_email,
+  Icons.analytics,
+  Icons.chat,
+  Icons.cloud
+];
+IconData iconValue = list.elementAt(0);
 
 const _tituloAppBar = 'Novo Login';
 
@@ -23,19 +39,17 @@ const _rotuloCampoCodRecuperacao = 'Códigos de recuperação';
 
 const _textoBotaoSalvar = 'Salvar';
 
-LoginItem login = LoginItem(codRecuperacao: []);
-
 class NewLogin extends StatefulWidget {
-  
-  NewLogin({Key? key, required login}) : super(key: key);
+  LoginItem login;
+  NewLogin({Key? key, required this.login}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return NewLoginState();
+    return NewLoginState(login);
   }
 }
 
 class NewLoginState extends State<NewLogin> {
-  
+  LoginItem login;
   final TextEditingController _controladorCampoTitulo = TextEditingController();
   final TextEditingController _controladorCampoUrl = TextEditingController();
   final TextEditingController _controladorCampoLogin = TextEditingController();
@@ -48,12 +62,11 @@ class NewLoginState extends State<NewLogin> {
       List<TextEditingController>.generate(
           10, (index) => TextEditingController());
 
-  NewLoginState();
+  NewLoginState(this.login);
   @override
   Widget build(BuildContext context) {
-    
-
-    if (login.icone != null) {
+    if (login.titulo != "") {
+      iconValue = list.elementAt(login.icone);
       _controladorCampoTitulo.text = login.titulo;
       _controladorCampoUrl.text = login.url;
       _controladorCampoLogin.text = login.login;
@@ -64,23 +77,23 @@ class NewLoginState extends State<NewLogin> {
         _controladorCampoCodRecuperacao[i].text = login.codRecuperacao[i];
       }
     }
-
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         appBar: AppBar(
-          title: Text(_tituloAppBar),
+          title: const Text(_tituloAppBar),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Container(
+                  const SizedBox(
                     height: 70,
                     width: 100,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 16.0),
-                      child: DropdownButtonIcons()),),
+                        padding: EdgeInsets.only(left: 16.0),
+                        child: DropdownButtonIcons()),
+                  ),
                   Expanded(
                     child: Editor(
                       controlador: _controladorCampoTitulo,
@@ -126,9 +139,8 @@ class NewLoginState extends State<NewLogin> {
                       },
                       body: Editor(
                         controlador: _controladorCampoUrl,
-                        rotulo: _rotuloCampoUrl,
                         dica: _dicaCampoUrl,
-                        icone: Icons.alternate_email_outlined,
+                        icone: Icons.web,
                         textInputType: TextInputType.url,
                       ),
                       isExpanded: isExpanded[0],
@@ -150,7 +162,6 @@ class NewLoginState extends State<NewLogin> {
                       },
                       body: Editor(
                         controlador: _controladorCampoPin,
-                        rotulo: _rotuloCampoPin,
                         icone: Icons.lock,
                         dica: _dicaCampoPin,
                         textInputType: TextInputType.visiblePassword,
@@ -175,7 +186,6 @@ class NewLoginState extends State<NewLogin> {
                       },
                       body: Editor(
                         controlador: _controladorCampoChave,
-                        rotulo: _rotuloCampoChave,
                         icone: Icons.lock,
                         dica: _dicaCampoChave,
                         textInputType: TextInputType.visiblePassword,
@@ -200,96 +210,16 @@ class NewLoginState extends State<NewLogin> {
                       },
                       body: Column(
                         children: [
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[0],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[1],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[2],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[3],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[4],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[5],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[6],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[7],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[8],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                              Expanded(
-                                child: Editor(
-                                  controlador:
-                                      _controladorCampoCodRecuperacao[9],
-                                  textInputType: TextInputType.visiblePassword,
-                                ),
-                              ),
-                            ],
-                          ),
+                          InputCRCard(_controladorCampoCodRecuperacao[0],
+                              _controladorCampoCodRecuperacao[1]),
+                          InputCRCard(_controladorCampoCodRecuperacao[2],
+                              _controladorCampoCodRecuperacao[3]),
+                          InputCRCard(_controladorCampoCodRecuperacao[4],
+                              _controladorCampoCodRecuperacao[5]),
+                          InputCRCard(_controladorCampoCodRecuperacao[6],
+                              _controladorCampoCodRecuperacao[7]),
+                          InputCRCard(_controladorCampoCodRecuperacao[8],
+                              _controladorCampoCodRecuperacao[9]),
                         ],
                       ),
                       isExpanded: isExpanded[3],
@@ -300,18 +230,31 @@ class NewLoginState extends State<NewLogin> {
                       isExpanded[item] = !isExpanded[item];
                     });
                   }),
-              ElevatedButton(
-                child: Text(_textoBotaoSalvar),
-                onPressed: () => _salvarLoginItem(context, login),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                  child: const SizedBox(
+                    height: 40,
+                    width: 150,
+                    child: Center(
+                      child: Text(_textoBotaoSalvar,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 25)),
+                    ),
+                  ),
+                  onPressed: () => _salvarLoginItem(context),
+                ),
               ),
             ],
           ),
         ));
   }
 
-  void _salvarLoginItem(BuildContext context, LoginItem loginItem) {
+  void _salvarLoginItem(BuildContext context) {
     final String titulo = _controladorCampoTitulo.text;
-    final String login = _controladorCampoLogin.text;
+    String loginText = _controladorCampoLogin.text;
     final String senha = _controladorCampoSenha.text;
 
     final String pin = _controladorCampoPin.text;
@@ -320,36 +263,42 @@ class NewLoginState extends State<NewLogin> {
 
     final List<String> codRecuperacoes = [];
 
-    if (titulo != "" && login != "" && senha != "") {
-      loginItem.icone = 0;
-      loginItem.titulo = titulo;
-      loginItem.login = login;
-      loginItem.senha = senha;
+    if (titulo != "" && loginText != "" && senha != "") {
+      login.icone = 0;
+      login.titulo = titulo;
+      login.login = loginText;
+      login.senha = senha;
 
-      if (pin != null) {
-        loginItem.pin = pin;
-      }
-      if (chave != null) {
-        loginItem.chave = chave;
-      }
-      if (url != null) {
-        loginItem.url = url;
-      }
-      loginItem.setIcon(IconValue);
+      login.pin = pin;
+      login.chave = chave;
+      login.url = url;
+      login.setIcon(iconValue);
       for (var i = 0; i < 10; i++) {
+        // ignore: unnecessary_null_comparison
         if (_controladorCampoCodRecuperacao[i] != null) {
           codRecuperacoes.add(_controladorCampoCodRecuperacao[i].text);
         } else {
           break;
         }
       }
-      if (!codRecuperacoes.isEmpty) {
-        loginItem.codRecuperacao = codRecuperacoes;
+      if (codRecuperacoes.isNotEmpty) {
+        login.codRecuperacao = codRecuperacoes;
       }
-      if (loginItem.id.length < 2) {
-        newLogin(loginItem);
+      if (login.id.length < 2) {
+        newLogin(login);
       } else {
-        saveLogin(loginItem);
+        saveLogin(login);
+      }
+      login = LoginItem(codRecuperacao: []);
+
+      _controladorCampoTitulo.text = "";
+      _controladorCampoUrl.text = "";
+      _controladorCampoLogin.text = "";
+      _controladorCampoSenha.text = "";
+      _controladorCampoPin.text = "";
+      _controladorCampoChave.text = "";
+      for (var i = 0; i < 10; i++) {
+        _controladorCampoCodRecuperacao[i].text = "";
       }
 
       Navigator.pop(context);
@@ -361,6 +310,7 @@ class NewLoginState extends State<NewLogin> {
 }
 
 newLogin(LoginItem loginItem) {
+  debugPrint("newLogin: $loginItem");
   try {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final newloginItemRef = FirebaseFirestore.instance.collection(uid!).doc();
@@ -372,6 +322,7 @@ newLogin(LoginItem loginItem) {
 }
 
 saveLogin(LoginItem loginItem) {
+  debugPrint("saveLogin: $loginItem");
   try {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final newloginItemRef =
@@ -382,18 +333,6 @@ saveLogin(LoginItem loginItem) {
   }
 }
 
-const List<IconData> list = <IconData>[
-  Icons.email,
-  Icons.apple,
-  Icons.badge,
-  Icons.adobe,
-  Icons.all_inbox,
-  Icons.alternate_email,
-  Icons.analytics,
-  Icons.chat,
-  Icons.cloud
-];
-IconData IconValue = list.elementAt(login.icone);
 class DropdownButtonIcons extends StatefulWidget {
   const DropdownButtonIcons({super.key});
 
@@ -402,28 +341,24 @@ class DropdownButtonIcons extends StatefulWidget {
 }
 
 class _DropdownButtonState extends State<DropdownButtonIcons> {
-
-
   @override
   Widget build(BuildContext context) {
     return DropdownButton<IconData>(
-      value: IconValue,
+      value: iconValue,
       icon: const Icon(Icons.arrow_drop_down),
-
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
-      ),
       onChanged: (IconData? value) {
         // This is called when the user selects an item.
         setState(() {
-          IconValue = value!;
+          iconValue = value!;
         });
       },
       items: list.map<DropdownMenuItem<IconData>>((IconData value) {
         return DropdownMenuItem<IconData>(
           value: value,
-          child: Icon(value,size: 60,),
+          child: Icon(
+            value,
+            size: 60,
+          ),
         );
       }).toList(),
     );

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 
 class Editor extends StatefulWidget {
@@ -8,7 +10,7 @@ class Editor extends StatefulWidget {
   final TextInputType textInputType;
   final bool senha;
 
-  Editor({
+  const Editor({super.key,
     required this.controlador,
     this.rotulo,
     this.dica,
@@ -50,14 +52,14 @@ class EditorState extends State<Editor> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.only(left: 16,right: 16),
       child: TextField(
         controller: controlador,
-        style: TextStyle(fontSize: 24.0),
+        style: const TextStyle(fontSize: 24.0),
         decoration: InputDecoration(
           icon: icone != null ? Icon(icone) : null,
-          labelText: rotulo != null ? rotulo : null,
-          hintText: dica != null ? dica : null,
+          labelText: rotulo,
+          hintText: dica,
           suffixIcon: senha != false ? IconButton(
             icon: Icon(
               // Based on passwordVisible state choose the icon

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +34,7 @@ class LoginItem {
       this.pin = "",
       this.chave = "",
       required this.codRecuperacao,
-      this.id=""}) {
+      this.id = ""}) {
     var i = codRecuperacao.length;
     for (; i < 10; i++) {
       codRecuperacao.add("");
@@ -43,7 +45,7 @@ class LoginItem {
   }
 
   setIcon(IconData element) {
-    icone= iconList.indexOf(element);
+    icone = iconList.indexOf(element);
   }
 
   @override
@@ -92,15 +94,15 @@ class LoginItem {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (id != null) "id": id,
-      if (titulo != null) "titulo": titulo,
-      if (icone != null) "icone": icone,
-      if (url != null) "url": url,
-      if (login != null) "login": login,
-      if (senha != null) "senha": senha,
-      if (pin != null) "pin": pin,
-      if (chave != null) "chave": chave,
-      if (codRecuperacao != null) "codRecuperacao": codRecuperacao,
+      "id": id,
+      "titulo": titulo,
+      "icone": icone,
+      "url": url,
+      "login": login,
+      "senha": senha,
+      "pin": pin,
+      "chave": chave,
+      "codRecuperacao": codRecuperacao,
     };
   }
 }
