@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1085768818367",
+    "project_id": "mypasswordskel",
+    "storage_bucket": "mypasswordskel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085768818367:android:ddd266dcbf768d9aeef00a",
+        "android_client_info": {
+          "package_name": "kelcompany.app.codigo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085768818367-du49q1hrpg5b0kqnol4mdh6iu9ks6kq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2grGyO4K3_vet83wrgTMYW_3Bq2qGa-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085768818367-du49q1hrpg5b0kqnol4mdh6iu9ks6kq2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1085768818367-q96o87nqtueh5lvtucnsdcvi62tb7qk1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kelcompany.app.codigo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

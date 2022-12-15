@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Editor extends StatefulWidget {
   final TextEditingController controlador;
-  final String rotulo;
+  final String? rotulo;
   final String? dica;
   final IconData? icone;
   final TextInputType textInputType;
@@ -10,7 +10,7 @@ class Editor extends StatefulWidget {
 
   Editor({
     required this.controlador,
-    required this.rotulo,
+    this.rotulo,
     this.dica,
     required this.textInputType,
     this.icone,
@@ -31,7 +31,7 @@ class Editor extends StatefulWidget {
 
 class EditorState extends State<Editor> {
   final TextEditingController controlador;
-  final String rotulo;
+  final String? rotulo;
   final String? dica;
   final IconData? icone;
   final TextInputType textInputType;
@@ -40,7 +40,7 @@ class EditorState extends State<Editor> {
 
   EditorState({
     required this.controlador,
-    required this.rotulo,
+    this.rotulo,
     this.dica,
     required this.textInputType,
     this.icone,
@@ -56,7 +56,7 @@ class EditorState extends State<Editor> {
         style: TextStyle(fontSize: 24.0),
         decoration: InputDecoration(
           icon: icone != null ? Icon(icone) : null,
-          labelText: rotulo,
+          labelText: rotulo != null ? rotulo : null,
           hintText: dica != null ? dica : null,
           suffixIcon: senha != false ? IconButton(
             icon: Icon(
