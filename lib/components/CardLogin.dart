@@ -40,32 +40,43 @@ class CardLoginState extends State<CardLogin> {
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: ListTile(
-            leading: Icon(novoLogin.getIcon(),size: 40,),
+            leading: Icon(
+              novoLogin.getIcon(),
+              size: 40,
+            ),
             title: Text(novoLogin.titulo),
-            subtitle:
-                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Column(children: [
-                GestureDetector(
-                  onLongPress: () {
-                    Clipboard.setData(ClipboardData(text: novoLogin.login));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('$novoLogin.login Copiado!!')));
-                  },
-                  child: Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 5),
-                      child: Text(novoLogin.login)),
-                ),
-                GestureDetector(
-                  onLongPress: () {
-                    Clipboard.setData(ClipboardData(text: novoLogin.senha));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('$novoLogin.senha Copiado!!')));
-                  },
-                  child: Padding(
-                      padding: const EdgeInsets.only(top: 5, bottom: 10),
-                      child: Text(novoLogin.senha)),
-                )
-              ]),
+            subtitle: Column(children: [
+              Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  textDirection: TextDirection.ltr,
+                  children: [
+                    GestureDetector(
+                      onLongPress: () {
+                        Clipboard.setData(ClipboardData(text: novoLogin.login));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(novoLogin.login + " Copiado!!")));
+                      },
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 5),
+                          child: Text(novoLogin.login)),
+                    ),
+                  ]),
+              Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  textDirection: TextDirection.ltr,
+                  children: [
+                    GestureDetector(
+                      onLongPress: () {
+                        Clipboard.setData(ClipboardData(text: novoLogin.senha));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(novoLogin.senha + ' Copiado!!')));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 10),
+                        child: Text(novoLogin.senha),
+                      ),
+                    ),
+                  ]),
             ]),
           ),
         ),

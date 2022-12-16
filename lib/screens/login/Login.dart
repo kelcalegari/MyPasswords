@@ -87,7 +87,7 @@ class LoginState extends State<Login> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
-                                      fontSize: 20)),
+                                      fontSize: 15)),
                             ),
                           ),
                           onPressed: () => _realizarCadastro(context),
@@ -108,7 +108,7 @@ class LoginState extends State<Login> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
-                                      fontSize: 20)),
+                                      fontSize: 15)),
                             ),
                           ),
                           onPressed: () => _realizaLogin(
@@ -159,7 +159,6 @@ Future<void> _realizaLogin(
         .showSnackBar(const SnackBar(content: Text('Senha não informado')));
   } else {
     try {
-      FirebaseAuth.instance.signOut();
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: senha,

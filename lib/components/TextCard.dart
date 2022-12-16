@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
 class TextCard extends StatefulWidget {
   final String text, label;
 
@@ -22,23 +23,31 @@ class TextCardState extends State<TextCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: GestureDetector(
-        onLongPress: () {
-          Clipboard.setData(ClipboardData(text: text));
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('$text Copiado!!')));
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 10),
-          child: Text(
-            "$label: $text",
-            textAlign: TextAlign.right,
-            textScaleFactor: 1.5,
-          ),
-        ),
-      ),
-    );
+    return  Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          textDirection: TextDirection.ltr,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: GestureDetector(
+                onLongPress: () {
+                  Clipboard.setData(ClipboardData(text: text));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('$text Copiado!!')));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(top: 5, bottom: 10),
+                  child: SizedBox (
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    child: Text(
+                    "$label: $text",
+                      textScaleFactor: 1.4,
+                      maxLines: 4,
+
+                  ),),
+                ),
+              ),
+            )
+          ]);
   }
 }
