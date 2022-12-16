@@ -63,7 +63,8 @@ class ListLoginsState extends State<ListLogins> {
   Future getListOfLogins() async {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
-      debugPrint("uid = "+ uid!);
+      debugPrint("getListOfLogins");
+      widget._loginItens.clear();
       var data = await FirebaseFirestore.instance
           .collection(uid!)
           .orderBy('titulo')

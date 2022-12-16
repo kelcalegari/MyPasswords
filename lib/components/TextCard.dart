@@ -41,7 +41,7 @@ class TextCardState extends State<TextCard> {
                     width: MediaQuery.of(context).size.width * 0.85,
                     child: Text(
                     "$label: $text",
-                      textScaleFactor: 1.4,
+                      textScaleFactor: 1.3,
                       maxLines: 4,
 
                   ),),
