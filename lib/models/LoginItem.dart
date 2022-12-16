@@ -27,14 +27,14 @@ class LoginItem {
 
   LoginItem(
       {this.icone = 0,
-      this.titulo = "",
-      this.login = "",
-      this.senha = "",
-      this.url = "",
-      this.pin = "",
-      this.chave = "",
-      required this.codRecuperacao,
-      this.id = ""}) {
+        this.titulo = "",
+        this.login = "",
+        this.senha = "",
+        this.url = "",
+        this.pin = "",
+        this.chave = "",
+        required this.codRecuperacao,
+        this.id = ""}) {
     var i = codRecuperacao.length;
     for (; i < 10; i++) {
       codRecuperacao.add("");
@@ -73,9 +73,9 @@ class LoginItem {
   }
 
   factory LoginItem.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-    SnapshotOptions? options,
-  ) {
+      DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options,
+      ) {
     final data = snapshot.data();
     return LoginItem(
       id: data?['id'],
