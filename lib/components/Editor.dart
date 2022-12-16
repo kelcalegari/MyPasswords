@@ -56,6 +56,7 @@ class EditorState extends State<Editor> {
       child: TextField(
         controller: controlador,
         style: const TextStyle(fontSize: 24.0),
+
         decoration: InputDecoration(
           icon: icone != null ? Icon(icone) : null,
           labelText: rotulo,

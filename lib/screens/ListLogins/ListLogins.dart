@@ -30,12 +30,12 @@ class ListLoginsState extends State<ListLogins> {
     super.didChangeDependencies();
     getListOfLogins();
   }
-
   @override
-  void dispose() {
-    super.dispose();
+  void reassemble() {
+    super.reassemble();
     getListOfLogins();
   }
+
 
   @override
   Widget build(BuildContext context) {
