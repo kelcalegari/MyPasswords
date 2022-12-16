@@ -148,7 +148,9 @@ void _realizarCadastro(BuildContext context) {
 }
 
 Future<void> _realizaLogin(
+
     BuildContext context, String email, String senha) async {
+  debugPrint("_realizaLogin");
   if (email.length < 2) {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('E-mail não informado')));
@@ -157,11 +159,18 @@ Future<void> _realizaLogin(
         .showSnackBar(const SnackBar(content: Text('Senha não informado')));
   } else {
     try {
+      FirebaseAuth.instance.signOut();
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: senha,
+      );
+      debugPrint("FirebaseAuth");
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => ListLogins()),
-        (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
       );
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -169,6 +178,9 @@ Future<void> _realizaLogin(
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Senha incorreta')));
+      }
+      else{
+        debugPrint("erro = "+ e.toString());
       }
     }
   }
